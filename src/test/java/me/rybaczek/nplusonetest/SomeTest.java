@@ -12,26 +12,26 @@ import java.util.List;
 @SpringBootTest
 public class SomeTest {
     @Autowired
-    private ParentRepository summaryRepository;
+    private BookOrderRepository bookOrderRepository;
 
     @Test
     @Transactional
-    void shouldExtractItemsFromOrders(){
+    void shouldCountBooksFromUserId(){
 
-        List<Parents> summaries = summaryRepository.findByParentId(1L);
+        List<BookOrder> byUserId = bookOrderRepository.findByUserId(1L);
 
-        List<Child> list = summaries.stream()
-                .map(Parents::getChild)
+        List<Book> list = byUserId.stream()
+                .map(BookOrder::getBooks)
                 .flatMap(Collection::stream)
                 .toList();
 
-        assertEquals(8,list.size());
+        assertEquals(10,list.size());
     }
     @Transactional
     @Test
     void shouldTest(){
 
-        List<Parents> summaries = summaryRepository.findByParentId(1L);
+        List<BookOrder> summaries = bookOrderRepository.findByUserId(1L);
         summaries.forEach(System.out::println);
 
     }
